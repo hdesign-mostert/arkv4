@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Ark.Models;
+using PagedList;
+
+namespace Ark.Controllers
+{
+    public class EnquiryController : Controller
+    {
+        private DatabaseContext db = new DatabaseContext();
+
+        public ActionResult Edit()
+        {
+            List<SelectListItem> ddlItems = new List<SelectListItem>();
+
+            List<EnquiryCategory> enquiryCategeories = db.EnquiryCategories.ToList();
+
+            foreach (EnquiryCategory category in enquiryCategeories)
+            {
+                ddlItems.Add(new SelectListItem { Text = category.Name, Value = category.EnquiryCategoryID.ToString() });
+            }
+
+            ViewData["ddlEnquiryTypes"] = ddlItems;
+
+            return View(new Enquiry());
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+    }
+}

@@ -1,0 +1,24 @@
+﻿@model Ark.Models.FormTextAndDropdownControl
+
+@{
+    Model.textControl.Attributes.Add(new Ark.Models.HtmlAttribute("class", "form-control"));
+    Model.dropdownControl.Attributes.Add(new Ark.Models.HtmlAttribute("class", "form-control"));
+}
+
+<div class="form-group drop-text req">
+    <label for="" class="col-sm-4 control-label">@Model.textControl.Label</label>
+    <div class="col-sm-8">
+        <div class="next-to">
+            <input @Model.textControl.UnobtrusiveAttributeString @Model.textControl.AttributeString type="text" name="@Model.textControl.HtmlName"  id="@Model.textControl.HtmlID" placeholder="@Model.textControl.Label">
+            @Model.textControl.Validation
+            <span class="">OR</span>
+            <select  @Model.dropdownControl.AttributeString name="@Model.dropdownControl.HtmlName">
+                @foreach (SelectListItem item in Model.dropdownControl.Items)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+    </div>
+
+</div>

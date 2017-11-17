@@ -1,0 +1,26 @@
+.copy-code {
+    @extend .card;
+    @extend .p-4;
+    @extend .bg-light;
+    @extend .mb-2;
+
+    overflow:hidden;
+}
+
+.copy-btn {
+    @extend .btn-primary;
+    @extend .btn;
+    @extend .d-flex;
+    @extend .ml-auto;
+    @extend .mt-2;
+}
+
+#msg {
+    display: none;
+}
+#show:checked #msg {
+    display: inline-block;
+}
+
+
+

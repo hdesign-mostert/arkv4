@@ -1,0 +1,45 @@
+// Round Button
+@mixin rounded($radius: 2em) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.btn-round {
+    @include rounded();
+    font-size: $font-size-sm;
+    font-weight:$font-weight-light;
+    padding:$btn-rounded-padding;
+}
+
+//Square Button
+@mixin square($radius: 0) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.btn-square {
+    @include square();
+    font-size: $font-size-sm;
+    font-weight:$font-weight-light;
+    padding:$btn-rounded-padding;
+}
+
+//Square Button Outlined
+@mixin square-outline($radius: 0) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+    border:2px solid theme-color("primary");
+}
+
+.btn-square-outline {
+    @include square-outline();
+    font-size: $font-size-sm;
+    font-weight:$font-weight-light;
+    padding:$btn-rounded-padding;
+    background:transparent;
+    color:theme-color("primary");
+}
+

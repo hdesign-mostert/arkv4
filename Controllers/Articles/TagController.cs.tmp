@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Ark.Models;
+
+namespace Mvc5.Controllers
+{
+    public class TagController : Controller
+    {
+        private DatabaseContext db = new DatabaseContext();
+
+        public ActionResult TagList(int articleID)
+        {
+            var query = from tag in db.Tags
+                        from articleTag in db.ArticleTags
+                        where tag.TagID == articleTag.TagID
+                        where articleTag.ArticleID == articleID
+                        select tag;
+
+            return View("TagList", query.OrderBy(tbl => tbl.Name).ToList());
+        }
+    }
+}

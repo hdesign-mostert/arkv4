@@ -1,0 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Ark.Models;
+
+namespace Ark.Controllers
+{
+    public class ArticleCategoryController : Controller
+    {
+        private DatabaseContext db = new DatabaseContext();
+
+        [Route("articleCategory/index")]
+        public ActionResult Index()
+        {
+            return View(new ArticleCategory());
+        }
+
+        // GET: /ArticleCategory/
+         public ActionResult CategoryListDropdown(string activeCategory)
+        {
+            return View("CategoryListDropdown", GetCategoryList(activeCategory).ToList());
+        }
+
+        public ActionResult CategoryList(string activeCategory)
+        {
+            return View("CategoryList", GetCategoryList(activeCategory).ToList());
+        }
+
+        private IQueryable<ArticleCategory> GetCategoryList(string activeCategory)
+        {
+            ViewBag.Category = activeCategory;
+
+            var query = (from cat in db.Categories join art in db.Articles on cat.ArticleCategoryID equals art.CategoryID select cat).Distinct().OrderBy(tbl => tbl.Name);
+
+            return query;
+        }
+
+
+        // GET: /ArticleCategory/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ArticleCategory articlecategory = db.Categories.Find(id);
+            if (articlecategory == null)
+            {
+                return HttpNotFound();
+            }
+            return View(articlecategory);
+        }
+
+        // GET: /ArticleCategory/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: /ArticleCategory/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include="ArticleCategoryID,ParentCategoryID,Name")] ArticleCategory articlecategory)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Categories.Add(articlecategory);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(articlecategory);
+        }
+
+        // GET: /ArticleCategory/Edit/5
+        public ActionResult Edit()
+        {
+            return View(new ArticleCategory());
+        }
+
+        public ActionResult GetReplacementList()
+        {
+            return View("CategorySelect",db.Categories.ToList());
+        }
+
+        // POST: /ArticleCategory/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include="ArticleCategoryID,ParentCategoryID,Name")] ArticleCategory articlecategory)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(articlecategory).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(articlecategory);
+        }
+
+        // GET: /ArticleCategory/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ArticleCategory articlecategory = db.Categories.Find(id);
+            if (articlecategory == null)
+            {
+                return HttpNotFound();
+            }
+            return View(articlecategory);
+        }
+
+        // POST: /ArticleCategory/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            ArticleCategory articlecategory = db.Categories.Find(id);
+            db.Categories.Remove(articlecategory);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

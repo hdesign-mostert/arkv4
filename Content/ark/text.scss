@@ -1,0 +1,27 @@
+// Weight and italics
+.font-weight-light {
+    font-weight: $font-weight-light;
+}
+
+// Highlights
+.text-highlight {
+    padding:0 10px;
+    display: inline-block;
+    background:theme-color("primary");
+    background-color: $opacity-dark-6;
+}
+
+//Font Family
+.font-secondary {
+    font-family: $font-family-sans-serif-secondary;
+}
+
+//Tracking and Kerning
+.word-spacing-lg {
+    word-spacing: $word-spacing-lg;
+}
+.letter-spacing-lg {
+    letter-spacing: $letter-spacing-lg;
+}
+
+

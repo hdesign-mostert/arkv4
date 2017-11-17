@@ -1,0 +1,27 @@
+@model List<Ark.Models.ArticleCategory>
+
+
+@{
+ Layout=null;
+ string Category = ViewBag.Category;
+}
+
+
+
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">@Category <span class="caret"></span></a>
+  <ul class="dropdown-menu" role="menu">
+      @if (string.Compare(Category, "all", true) != 0)
+      {
+          <li class=""><a href="~/articles/all" >All</a></li>
+      }
+      else
+      {
+          <li class="active"><a href="~/articles/all" >All</a></li>
+      }
+
+      @Html.Partial("CategoryList", Model)
+
+   </ul>
+
+
+

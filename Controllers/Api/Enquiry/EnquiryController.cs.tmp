@@ -1,0 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using Ark.Models;
+using System.Web.Http.Description;
+using Ark.App_Code;
+using System.Text.RegularExpressions;
+using Ark.Controllers.Helpers;
+using System.Web.Http;
+using System.Net.Http;
+using System.Net;
+using System.Web;
+
+namespace Ark.Controllers.Api
+{
+    public class EnquiryController : ApiController
+    {
+        private DatabaseContext db = new DatabaseContext();
+        
+        [Route("api/enquiry/{id:int}")]
+        [ResponseType(typeof(Enquiry))]
+        public IHttpActionResult GetEnquiry(int id)
+        {
+            if (id == 0)
+                return Ok(new Enquiry());
+
+            Enquiry enquiry = db.Enquiries.Find(id);
+            if (enquiry == null)
+            {
+                return null;
+            }
+
+            return Ok(enquiry);
+        }
+
+        // POST api/enquiry
+        [Route("api/enquiry")]
+        public HttpResponseMessage Post([FromBody]Enquiry enquiry)
+        {
+            if (ModelState.IsValid)
+            {
+                string ipAddress = GetIpAddress();
+
+                enquiry.IPAddress = ipAddress;
+
+                try
+                {
+                    enquiry.CreateDate = DateTime.Now;
+
+                    db.Enquiries.Add(enquiry);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.Write(ex.ToString());
+                }
+
+
+
+
+                string domain = enquiry.Email.Substring(enquiry.Email.IndexOf('@') + 1);
+
+                bool isAllowed = true;
+
+                isAllowed = (
+                    from spam
+                    in db.EnquirySpam
+                    where
+                    (string.Compare(spam.IpAddress, ipAddress) == 0 && spam.EmailAddress == null && spam.Domain == null) ||
+                    (spam.IpAddress == null && string.Compare(spam.EmailAddress, enquiry.Email) == 0 && spam.Domain == null) ||
+                    (spam.IpAddress == null && spam.EmailAddress == null && string.Compare(spam.Domain, domain) == 0) ||
+
+                    (string.Compare(spam.IpAddress, ipAddress) == 0 && string.Compare(spam.EmailAddress, enquiry.Email) == 0 && spam.Domain == null) ||
+                    (string.Compare(spam.IpAddress, ipAddress) == 0 && spam.EmailAddress == null && string.Compare(spam.Domain, domain) == 0)
+
+                    select spam
+                    ).ToList().Count == 0;
+
+
+                if (isAllowed)
+                {
+
+                    EnquiryCategory category = db.EnquiryCategories.Find(enquiry.EnquiryCategoryID);
+
+                    string[] emails = category.To.Split(',');
+
+                    string template;
+
+                    foreach (string email in emails)
+                    {
+                        template = DSMailTemplateController.GetMailTemplate("enquiry");
+                        template = template.Replace("{0}", enquiry.Name).Replace("{1}", enquiry.TelephoneNumber).Replace("{2}", category.Name).Replace("{3}", enquiry.Email);
+
+                        DSMailController.SendMail(email, category.Name, enquiry.Email, template, enquiry.Name);
+                    }
+
+                    template = DSMailTemplateController.GetMailTemplate("enquiryConfirmation");
+                    template = template.Replace("{0}", enquiry.Name).Replace("{1}", enquiry.TelephoneNumber).Replace("{2}", category.Name).Replace("{3}", enquiry.Email);
+                    DSMailController.SendMail(enquiry.Email, category.Name, enquiry.Email, template, enquiry.Name);
+
+                }
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, enquiry);
+                response.Headers.Location = new Uri(UrlHelper.ResolveUrl("~/api/Enquiry/" + enquiry.EnquiryID));
+                return response;
+            }
+
+            return null;
+        }
+
+        public string GetIpAddress()
+        {
+            string remoteAddress = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+
+            Regex IpAddressMatcher = new Regex(@"^([^.]+\.[^.]+\.[^.]+\.).*");
+
+            if (string.IsNullOrEmpty(remoteAddress))
+            {
+                return "";
+            }
+            Match m = IpAddressMatcher.Match(remoteAddress);
+            if (m.Success)
+            {
+                return m.Groups[1] + "0";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

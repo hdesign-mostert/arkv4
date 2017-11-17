@@ -1,0 +1,63 @@
+@model Ark.Models.Enquiry
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+
+}
+    <div id="EnquiryEdit">
+
+       @Html.StartForm(new Ark.Models.FormContainerControl("enquiry","",true))
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.EnquiryID)
+
+            <div class="form-group">
+                @Html.FormControlFor(x =>x.Name,ControlType.Textbox)
+            </div>
+
+            <div class="form-group">
+                @Html.FormControlFor(x =>x.Email,ControlType.Textbox)
+            </div>
+
+            <div class="form-group">
+
+                @Html.FormControlFor(x =>x.EnquiryCategoryID,ViewData["ddlEnquiryTypes"] as List<SelectListItem>, false)
+
+            </div>
+
+            <div class="form-group">
+
+                 @Html.FormControlFor(x =>x.TelephoneNumber,ControlType.Textbox)
+
+            </div>
+
+            <div class="form-group">
+                <a class="btn btn-primary btn-block" data-bind="click: Save, attr: { disabled: IsSaving() }" data-toggle="play-animation" data-target="#mail-item" data-play="bounceOutRight"><i class="fa" data-bind="    css: { 'fa fa-spinner fa-spin': IsSaving() }"></i> Send</a>
+                <a class="btn btn-link btn-block" data-toggle="offsidebar">Cancel</a>
+            </div>
+
+            <div data-bind="style: { display: ShowPopup() ? 'inline-block' : 'none' }" class="success-popup" style="display: none">
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-bind="click: ShowPopup(false)"><i class="fa fa-times"></i></button>
+                    <strong>Well done!</strong><br>
+                    You have successfully submit a query.
+                </div>
+                <div class="modal-backdrop fade in"></div>
+            </div>
+
+            <div data-bind="style: { display: ShowErrorPopup() ? 'inline-block' : 'none' }" class="success-popup" style="display: none">
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-bind="click: ShowErrorPopup(false)"><i class="fa fa-times"></i></button>
+                    <strong>Oops!</strong><br>
+                    Something went wrong
+                </div>
+                <div class="modal-backdrop fade in"></div>
+            </div>
+        @Html.StopForm()
+
+    </div>
+
+
+
+

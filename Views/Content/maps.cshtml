@@ -1,0 +1,31 @@
+@{
+    ViewBag.Title = "Maps";
+    ViewBag.PageBack = "Features";
+}
+
+@Html.Partial("Navigation-default")
+@Html.Partial("promo-default")
+
+<div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="/features">@ViewBag.PageBack</a></li>
+     <li class="breadcrumb-item active">@ViewBag.Title</li>
+    </ol>
+</div>
+
+
+<section>
+    <div class="container mt-5">
+        <h1 class="mt font-weight-normal">Google Maps</h1>
+        <p class="mt-5 lead">Google Map Night Mode Example</p>
+        <div id="map-night-mode" style="height:500px"></div>
+        <div class="row">
+            <div class="col my-4">
+                <p>Use the <a href="https://mapstyle.withgoogle.com/" target="_blank">Google Maps APIs Styling Wizard</a> as a quick way to generate a JSON styling object.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+

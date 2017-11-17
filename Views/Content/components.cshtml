@@ -1,0 +1,354 @@
+@Html.Partial("navigation-default")
+@Html.Partial("promo")
+
+<div class="page-content d-flex align-items-stretch">
+    <div class="container h-10" id="content">
+    <div class="row h-100 mt-5">
+        <aside class="col-md-2 d-none d-sm-block d-md-block">
+            <div class="mt-5 mb-3" id="sidemenu">
+                <ul class="nav flex-md-column flex-row justify-content-between">
+                    <li class="nav-item"><a href="#sec1" class="nav-link active pl-0">One</a></li>
+                    <li class="nav-item"><a href="#sec2" class="nav-link pl-0">Two</a></li>
+                    <li class="nav-item">
+                        <a href="#sec3" class="nav-link pl-0">Three</a>
+                        <ul class="nav flex-md-column ml-2 hidden-sm-down">
+                            <li class="nav-item"><a href="#sec3a" class="nav-link">Section A</a></li>
+                            <li class="nav-item"><a href="#sec3b" class="nav-link">Section B</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#sec4" class="nav-link pl-0">Four</a></li>
+                    <li class="nav-item"><a href="#sec5" class="nav-link pl-0">Five</a></li>
+                    <li class="nav-item"><a href="#sec6" class="nav-link pl-0">Six</a></li>
+                </ul>
+            </div>
+        </aside>
+        <main class="col py-5">
+            <div class="row">
+                <div class="col">
+                    <ul class="nav nav-tabs small" role="tablist">
+                        <li class="nav-item"><a class="nav-link text-uppercase active" data-toggle="tab" href="#tab1" role="tab">Home</a></li>
+                        <li class="nav-item ml-auto"><a class="nav-link text-uppercase" data-toggle="tab" href="#tab2" role="tab">List</a></li>
+                        <li class="nav-item"><a class="nav-link text-uppercase" data-toggle="tab" href="#tab3" role="tab">More</a></li>
+                    </ul>
+                    <div class="tab-content py-3">
+                        <div class="tab-pane active" id="tab1" role="tabpanel">
+                            <span class="anchor" id="sec1"></span>
+                            <h5 class="mt-4">Typography</h5>
+
+                            <div class="docs-example">
+                                <h1 class="display-1">Display 1</h1>
+                                <h1 class="display-2">Display 2</h1>
+                                <h1 class="display-3">Display 3</h1>
+                                <h1 class="display-4">Display 4</h1>
+                                <h1>h1. Bootstrap heading</h1>
+                                <h2>h2. Bootstrap heading</h2>
+                                <h3>h3. Bootstrap heading</h3>
+                                <h4>h4. Bootstrap heading</h4>
+                                <h5>h5. Bootstrap heading</h5>
+                                <h6>h6. Bootstrap heading</h6>
+                                <h3>
+                                    Fancy display heading
+                                    <small class="text-muted">With faded secondary text</small>
+                                </h3>
+                            </div>
+
+                            <h5 class="mt-4">Paragraphs</h5>
+
+                            <div class="docs-example">
+                                <p class="lead">Make a paragraph stand out by adding <b>.lead</b></p>
+                                <p>You can use the mark tag to <mark>highlight</mark> text.</p>
+                                <p><del>This line of text is meant to be treated as deleted text.</del></p>
+                                <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+                                <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+                                <p><u>This line of text will render as underlined</u></p>
+                                <p><small>This line of text is meant to be treated as fine print.</small></p>
+                                <p><strong>This line rendered as bold text.</strong></p>
+                                <p><em>This line rendered as italicized text.</em></p>
+                                <p><abbr title="attribute">attr</abbr></p>
+                                <p><abbr title="HyperText Markup Language" class="initialism">HTML</abbr></p>
+                                <blockquote class="blockquote">
+                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                </blockquote>
+                                <blockquote class="blockquote text-center">
+                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                                </blockquote>
+                            </div>
+
+                            <h5 class="mt-4">Description List Alignment</h5>
+                            <div class="docs-example"><dl class="row">
+                                    <dt class="col-sm-3">Description lists</dt>
+                                    <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+
+                                    <dt class="col-sm-3">Euismod</dt>
+                                    <dd class="col-sm-9">
+                                        <p>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
+                                        <p>Donec id elit non mi porta gravida at eget metus.</p>
+                                    </dd>
+
+                                    <dt class="col-sm-3">Malesuada porta</dt>
+                                    <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+
+                                    <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+                                    <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+
+                                    <dt class="col-sm-3">Nesting</dt>
+                                    <dd class="col-sm-9">
+                                        <dl class="row">
+                                            <dt class="col-sm-4">Nested definition list</dt>
+                                            <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                            </div>
+
+
+
+                            <span class="anchor" id="sec2"></span>
+                            <h5 class="mt-4">Unordered Lists</h5>
+
+                            <div class="docs-example">
+                                <ul>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Nulla volutpat aliquam velit
+                                        <ul>
+                                            <li>Phasellus iaculis neque</li>
+                                            <li>Purus sodales ultricies</li>
+                                            <li>Vestibulum laoreet porttitor sem</li>
+                                        </ul>
+                                    </li>
+                                    <li>Faucibus porta lacus fringilla vel</li>
+                                    <li>Eget porttitor lorem</li>
+                                </ul>
+                            </div>
+
+                            <h5 class="mt-4">Ordered Lists</h5>
+                            <div class="docs-example">
+                                <ol>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Nulla volutpat aliquam velit
+                                        <ul>
+                                            <li>Phasellus iaculis neque</li>
+                                            <li>Purus sodales ultricies</li>
+                                            <li>Vestibulum laoreet porttitor sem</li>
+                                        </ul>
+                                    </li>
+                                    <li>Faucibus porta lacus fringilla vel</li>
+                                    <li>Eget porttitor lorem</li>
+                                </ol>
+                            </div>
+
+                            <h5 class="mt-4">Unstyled List</h5>
+                            <div class="docs-example">
+                                <ul class="list-unstyled">
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Nulla volutpat aliquam velit
+                                        <ul>
+                                            <li>Phasellus iaculis neque</li>
+                                            <li>Purus sodales ultricies</li>
+                                            <li>Vestibulum laoreet porttitor sem</li>
+                                        </ul>
+                                    </li>
+                                    <li>Faucibus porta lacus fringilla vel</li>
+                                    <li>Eget porttitor lorem</li>
+                                    <li>Eget porttitor lorem</li>
+                                </ul>
+                            </div>
+
+                            <h5 class="mt-4">Inline List</h5>
+                            <div class="docs-example">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">Lorem ipsum</li>
+                                    <li class="list-inline-item">Phasellus iaculis</li>
+                                    <li class="list-inline-item">Nulla volutpat</li>
+                                </ul>
+                            </div>
+
+                            <span class="anchor" id="sec3"></span>
+                            <h5 class="mt-4">Images</h5>
+
+                            <div class="docs-example">
+                                <h4 class="text-center">Image made into block and centered</h4>
+                                <img src="http://www.toptenz.net/wp-content/uploads/2015/02/leaveearth1.jpg" class="img-fluid mx-auto d-block" alt="Responsive image" width="600">
+                            </div>
+
+
+                            <div class="pl-4">
+                                <span class="anchor" id="sec3a"></span>
+                                <h6>Three A</h6>
+                                <p>PBR narwhal sustainable mixtape swag wolf squid tote bag plus and them then Helvetica cray plaid, vegan brunch Banksy leggings +1 direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's
+                                Shoreditch selfies, forage fingerstache food truck occupy YOLO Pitchfork fixie MDO of twitter fame iPhone fanny pack art party Portland.</p>
+                                <br>
+
+                                <span class="anchor" id="sec3b"></span>
+                                <h6>Three B</h6>
+                                <p>Helvetica cray plaid, vegan brunch Banksy leggings +1 direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's
+                                Shoreditch selfies, forage fingerstache food truck occupy YOLO Pitchfork fixie iPhone fanny pack art party Portland.
+                                PBR narwhal sustainable mixtape swag wolf squid tote bag. Godard sustainable you probably haven't heard of them, vegan farm-to-table Williamsburg slow-carb readymade disrupt deep v. Meggings seitan Wes Anderson semiotics, cliche American Apparel whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1 direct trade. Wayfarers codeply PBR selfies. </p>
+                            </div>
+
+                            <hr>
+
+                            <span class="anchor" id="sec4"></span>
+                            <h5>4</h5>
+                            <p>Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street art Carles, stumptown gluten-free Kickstarter artisan Wes Anderson wolf pug. Godard sustainable you probably haven't heard of them, vegan farm-to-table Williamsburg
+                                slow-carb readymade disrupt deep v. Meggings seitan Wes Anderson semiotics, cliche American Apparel whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1 direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's
+                                Shoreditch selfies, forage fingerstache food truck occupy YOLO Pitchfork fixie iPhone fanny pack art party Portland.</p>
+
+                            <span class="anchor" id="sec5"></span>
+                            <h5>5</h5>
+                            <p>Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street art Carles, stumptown gluten-free Kickstarter artisan Wes Anderson wolf pug. Godard sustainable you probably haven't heard of them, vegan farm-to-table Williamsburg
+                                slow-carb readymade disrupt deep v. Meggings seitan Wes Anderson semiotics, cliche American Apparel whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1 direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's
+                                Shoreditch selfies, forage fingerstache food truck occupy YOLO Pitchfork fixie iPhone fanny pack art party Portland.</p>
+
+                            <span class="anchor" id="sec6"></span>
+                            <h5>6</h5>
+                            <p>Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street art Carles, stumptown gluten-free Kickstarter artisan Wes Anderson wolf pug. Godard sustainable you probably haven't heard of them, vegan farm-to-table Williamsburg
+                                slow-carb readymade disrupt deep v. Meggings seitan Wes Anderson semiotics, cliche American Apparel whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1 direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's
+                                Shoreditch selfies, forage fingerstache food truck occupy YOLO Pitchfork fixie iPhone fanny pack art party Portland.</p>
+                        </div>
+                        <div class="tab-pane" id="tab2" role="tabpanel">
+                            <div class="card card-outline-primary mb-3">
+                                <div class="card-block">
+                                    <h3 class="card-title">Primary</h3>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-outline-secondary">Outline</a>
+                                </div>
+                            </div>
+                            <div class="card card-outline-primary mb-3">
+                                <div class="card-block">
+                                    <h3 class="card-title">Primary</h3>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-outline-secondary">Outline</a>
+                                </div>
+                            </div>
+                            <div class="card card-outline-primary mb-3">
+                                <div class="card-block">
+                                    <h3 class="card-title">Primary</h3>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-outline-secondary">Outline</a>
+                                </div>
+                            </div>
+                            <div class="card card-outline-primary mb-3">
+                                <div class="card-block">
+                                    <h3 class="card-title">Primary</h3>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-outline-secondary">Outline</a>
+                                </div>
+                            </div>
+                            <div class="card card-outline-primary mb-3">
+                                <div class="card-block">
+                                    <h3 class="card-title">Primary</h3>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-outline-secondary">Outline</a>
+                                </div>
+                            </div>
+                            <div class="card card-outline-primary mb-3">
+                                <div class="card-block">
+                                    <h3 class="card-title">Primary</h3>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-outline-secondary">Outline</a>
+                                </div>
+                            </div>
+                            <div class="card card-outline-primary mb-3">
+                                <div class="card-block">
+                                    <h3 class="card-title">Primary</h3>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-outline-secondary">Outline</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3" role="tabpanel">
+                            <h4>More content...</h4>
+                            <p>Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street art Carles, stumptown gluten-free Kickstarter artisan Wes Anderson wolf pug. Godard sustainable you probably haven't heard of them, vegan farm-to-table Williamsburg
+                                slow-carb readymade disrupt deep v. Meggings seitan Wes Anderson semiotics, cliche American Apparel whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1 direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's
+                                Shoreditch selfies, forage fingerstache food truck occupy YOLO Pitchfork fixie iPhone fanny pack art party Portland.</p>
+
+                            <p>Sriracha biodiesel taxidermy organic post-ironic, Intelligentsia salvia mustache 90's code editing brunch. Butcher polaroid VHS art party, hashtag Brooklyn deep v PBR narwhal sustainable mixtape swag wolf squid tote bag. Tote
+                                bag cronut semiotics, raw denim deep v taxidermy messenger bag. Tofu YOLO Etsy, direct trade ethical Odd Future jean shorts paleo. Forage Shoreditch tousled aesthetic irony, street art organic Bushwick artisan cliche semiotics
+                                ugh synth chillwave meditation. Shabby chic lomo plaid vinyl chambray Vice. Vice sustainable cardigan, Williamsburg master cleanse hella DIY 90's blog.</p>
+
+                            <p>Intelligentsia salvia mustache 90's code editing brunch. Butcher polaroid VHS art party, hashtag Brooklyn deep v PBR narwhal sustainable mixtape swag wolf squid tote bag. Tote bag cronut semiotics, raw denim deep v taxidermy
+                                messenger bag. Tofu YOLO Etsy, direct trade ethical Odd Future jean shorts paleo. Forage Shoreditch tousled aesthetic irony, street art organic Bushwick artisan cliche semiotics ugh synth chillwave meditation. Shabby chic
+                                lomo plaid vinyl chambray Vice. Vice sustainable cardigan, Williamsburg master cleanse hella DIY 90's blog.</p>
+
+                        </div>
+                </div>
+                </div>
+                <div class="col-lg-3 col-12" id="sidemenu2">
+                    <div class="card bg-faded border-0 mb-3">
+                        <div class="card-body">
+                            <h3 class="card-title">Card</h3>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-outline-secondary">Outline</a>
+                        </div>
+                    </div>
+                    <div class="card bg-faded border-0 mb-3">
+                        <div class="card-body">
+                            <h3 class="card-title">Ad</h3>
+                            <p class="card-text">Display supporters and advertisements here.</p>
+                            <a href="#" class="btn btn-outline-secondary">C-T-A</a>
+                        </div>
+                    </div>
+                    <div class="card bg-faded border-0 mb-3">
+                        <div class="card-body">
+                            <h3 class="card-title">Card</h3>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-outline-secondary">Outline</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+    <div id="modal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="myModalLabel">Hello.</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-2 col-form-label">Text</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" value="Mike McDonald" id="example-text-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-search-input" class="col-2 col-form-label">Search</label>
+                    <div class="col-10">
+                        <input class="form-control" type="search" value="How to responsive design" id="example-search-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label">Email</label>
+                    <div class="col-10">
+                        <input class="form-control" type="email" value="email@example.com" id="example-email-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-url-input" class="col-2 col-form-label">URL</label>
+                    <div class="col-10">
+                        <input class="form-control" type="url" value="http://codeply.com" id="example-url-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-tel-input" class="col-2 col-form-label">Phone</label>
+                    <div class="col-10">
+                        <input class="form-control" type="tel" value="1-(202)-555-5555" id="example-tel-input">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+

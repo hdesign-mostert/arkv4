@@ -1,0 +1,198 @@
+[class*=border] {
+border-color:#999;
+border-style:solid;
+border-width:0;
+}
+
+.border-light {
+border-color:#ccc;
+border-width:1px;
+}
+
+.border-dark {
+border-color:#666;
+border-width:1px;
+}
+
+.border-dashed {
+border-style:dashed;
+border-width:1px;
+}
+
+.border-double {
+border-style:double;
+border-width:3px;
+}
+
+.border-left-light {
+border-left-color:#ccc;
+border-left-width:1px;
+}
+
+.border-left-dark {
+border-left-color:#666;
+border-left-width:1px;
+}
+
+.border-left-dashed {
+border-left-style:dashed;
+border-left-width:1px;
+}
+
+.border-left-double {
+border-left-style:double;
+border-left-width:3px;
+}
+
+.border-right-light {
+border-right-color:#ccc;
+border-right-width:1px;
+}
+
+.border-right-dark {
+border-right-color:#666;
+border-right-width:1px;
+}
+
+.border-right-dashed {
+border-right-style:dashed;
+border-right-width:1px;
+}
+
+.border-right-double {
+border-right-style:double;
+border-right-width:3px;
+}
+
+.border-top-light {
+border-top-color:#ccc;
+border-top-width:1px;
+}
+
+.border-top-dark {
+border-top-color:#666;
+border-top-width:1px;
+}
+
+.border-top-dashed {
+border-top-style:dashed;
+border-top-width:1px;
+}
+
+.border-top-double {
+border-top-style:double;
+border-top-width:3px;
+}
+
+.border-bottom-light {
+border-bottom-color:#ccc;
+border-bottom-width:1px;
+}
+
+.border-bottom-dark {
+border-bottom-color:#666;
+border-bottom-width:1px;
+}
+
+.border-bottom-short-dark {
+border-bottom-color:#000;
+border-bottom-width:1px;
+width:80px;
+}
+
+.border-bottom-short-light {
+border-bottom-color:#fff;
+border-bottom-width:1px;
+width:100px;
+}
+
+.border-bottom-dashed {
+border-bottom-style:dashed;
+border-bottom-width:1px;
+}
+
+.border-bottom-double {
+border-bottom-style:double;
+border-bottom-width:3px;
+}
+
+.border {
+border-radius:1px;
+border-width:1px;
+}
+
+.border-none {
+border-width:0;
+}
+
+.border-large {
+border-width:2px;
+}
+
+.border-xlarge {
+border-width:4px;
+}
+
+.border-left {
+border-left-width:1px;
+}
+
+.border-left-none {
+border-left-width:0;
+}
+
+.border-left-large {
+border-left-width:2px;
+}
+
+.border-left-xlarge {
+border-left-width:4px;
+}
+
+.border-right {
+border-right-width:1px;
+}
+
+.border-right-none {
+border-right-width:0;
+}
+
+.border-right-large {
+border-right-width:2px;
+}
+
+.border-right-xlarge {
+border-right-width:4px;
+}
+
+.border-top {
+border-top-width:1px;
+}
+
+.border-top-none {
+border-top-width:0;
+}
+
+.border-top-large {
+border-top-width:2px;
+}
+
+.border-top-xlarge {
+border-top-width:4px;
+}
+
+.border-bottom {
+border-bottom-width:1px;
+}
+
+.border-bottom-none {
+border-bottom-width:0;
+}
+
+.border-bottom-large {
+border-bottom-width:2px;
+}
+
+.border-bottom-xlarge {
+border-bottom-width:4px;
+}

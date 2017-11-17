@@ -1,0 +1,49 @@
+@model Ark.Models.ArticleCategory
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+}
+
+<div data-bind="stopBinding: true">
+<div id="ArticleCategoryEdit" style="display:none;" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-bind="click: Cancel" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Article Category Add/Edit</h4>
+            </div>
+
+            @Html.StartForm(new Ark.Models.FormContainerControl("ArticleCategoryForm","/",true))
+
+				    @Html.AntiForgeryToken()
+				        @Html.ValidationSummary(true)
+				        @Html.HiddenFor(model => model.ArticleCategoryID)
+
+
+				<div class="modal-body">
+
+				        @Html.FormControlFor(x => x.Name, ControlType.Textbox)
+				</div>
+
+				        <div class="modal-footer">
+				                <a class="btn btn-primary" data-bind="click: Save, attr: { disabled: IsSaving() }"><i class="fa" data-bind="css: { 'fa-spinner fa-spin': IsSaving() }"></i>Save</a>
+				                <a class="btn btn-default" data-dismiss="modal" aria-hidden="true" data-bind="click: Cancel">Cancel</a>
+				        </div>
+
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

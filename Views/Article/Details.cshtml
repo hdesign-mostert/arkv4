@@ -1,0 +1,148 @@
+@model Ark.Models.Article
+
+@{
+    ViewBag.Title = Model.Subject;
+    ViewBag.MetaDescription = Model.Summary;
+    Layout = "~/Views/Shared/LayoutClean.cshtml";
+}
+
+<style>
+	body {padding: 100px 0; background-color: #eee;overflow: auto !important;}
+	.breadcrumb-section {display: none;}
+	.breadcrumb-section.top {display: block;}
+	.hidden-xs.pb-lg.pt-lg {display: none;}
+	#accreditation {display: none;}
+</style>
+
+
+<div class="fullscreen">
+
+<div class="hidden breadcrumb-section top">
+	<div class="container">
+		<ul class="breadcrumb breadcrumb-top">
+			<li><a href="/"><i class="fa fa-home"></i></a></li>
+		    <li class="dropdown">@Html.Action("CategoryListDropdown", "ArticleCategory", new { activeCategory = @Model.Category })</li>
+		@foreach (var crumb in ViewBag.BreadCrumbs)
+		{
+			@Html.Raw("<li>")
+		    if (crumb.Value == "")
+		    {
+		        @Html.Raw((string)crumb.Key)
+		    }
+		    else
+		    {
+		        @Html.ActionLink((string)crumb.Key, ((string)crumb.Value).ToLower())
+		    }
+
+			@Html.Raw("</li>")
+		}
+		</ul>
+	</div>
+</div>
+
+
+<!--<section class="bg-primary stellar heading">
+	<div class="container">
+		<h1 class="mt0">@Html.DisplayFor(model => model.Subject)</h1>
+		<p class="lead">@Html.DisplayFor(model => model.Summary)</p>
+	</div>
+</section>-->
+
+
+<section class="section">
+	<div class="container">
+
+<section id="article" class="col-md-8">
+
+
+
+
+	    <h1>@Html.DisplayFor(model => model.Subject)</h1>
+	    <div class="share-btns">
+      	<div class="sh-btn"><div class="fb-share-button" data-layout="button_count"></div></div>
+      	<div class="sh-btn"><a href="https://twitter.com/share" class="twitter-share-button" data-via="wernergriesel">Tweet</a></div>
+      	<div class="sh-btn"><div class="g-plusone" data-size="medium"></div></div>
+      </div>
+
+
+			<div class="image">
+	    	<img src='/image.png?id=@Model.ArticleImageID&type=original' class="img-responsive" />
+	    </div>
+
+
+	    <div class="row">
+				<div class="col-sm-3 author">
+					<div class="avatar">
+						<img src="/content/images/Mountain@2x.png" class="img-responsive">
+					</div>
+					<h4 class="m0">@Html.DisplayFor(model => model.Author)</h4>
+					<p class="text-muted">@Html.DisplayFor(model => model.ReadableDate)</p>
+				</div>
+
+				<div class="col-sm-9">
+					@Html.Raw(Model.Content)
+
+					<div class="share-btns mb0">
+	        	<div class="sh-btn"><div class="fb-share-button" data-layout="button_count"></div></div>
+	        	<div class="sh-btn"><a href="https://twitter.com/share" class="twitter-share-button" data-via="wernergriesel">Tweet</a></div>
+	        	<div class="sh-btn"><div class="g-plusone" data-size="medium"></div></div>
+	        </div>
+
+	        <div class="panel-body">
+			     	<div id="disqus_thread" class=""></div>
+			     	<script type="text/javascript">
+				        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+				        var disqus_shortname = "@{@Html.Raw(System.Configuration.ConfigurationManager.AppSettings["DisqusShortName"].ToString());}"; // required: replace example with your forum shortname
+
+				        /* * * DON'T EDIT BELOW THIS LINE * * */
+				        (function () {
+				            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+				            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				        })();
+				    </script>
+						<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+						<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	     		</div>
+
+				</div>
+	    </div>
+
+
+
+</section>
+
+    <aside id="sidebar" class="col-md-4">
+
+			<h3 class="text-center">What's Hot</h3>
+			@Html.Action("ArticleList", new { Category = ViewBag.Category, Type = 1, articleID = ViewBag.ArticleID, Size=3 })
+
+
+    </aside>
+
+	</div>
+</section>
+
+</div>
+
+
+@section Scripts {
+
+
+    @Styles.Render("~/Content/pickadate")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/pickadate")
+
+    @Scripts.Render("~/Scripts/summernote.min.js")
+
+    @Scripts.Render("~/Scripts/JavaScript/Base.js")
+    @Scripts.Render("~/Scripts/JavaScript/ArticleViewModel.js")
+    @Scripts.Render("~/Scripts/JavaScript/ArticleImageViewModel.js")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryuploader")
+}
+
+
+
+

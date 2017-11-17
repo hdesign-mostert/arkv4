@@ -1,0 +1,20 @@
+﻿@model Ark.Models.NavLinkControl
+
+@{
+    ViewBag.Title = "NavLink";
+
+    string active = "";
+
+    if (Model.IsActive)
+    {
+        active = "class=\"active " + Model.LinkClass + "\"";
+    }
+    else
+    {
+        active = "class=\"" + Model.LinkClass + "\"";
+    }
+
+}
+
+<li @(new MvcHtmlString(active))><a href="@Model.Href">@Model.Label</a></li>
+

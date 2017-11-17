@@ -1,0 +1,11 @@
+
+	<div class="btn-group dropup">
+	   <button type="button" data-toggle="dropdown" class="btn btn-sm btn-primary btn-round rippler rippler-default dropdown-toggle"><i class="fa fa-cog"></i></button>
+
+	   <ul role="menu" class="dropdown-menu pull-right">
+	      <li></li>
+	      <li><a href="javascript:void(0);" data-bind="click: Delete"><i class="fa fa-trash-o"></i> Remove</a></li>
+	      <li><a href="javascript:void(0);" data-bind="click: Load"><i class="fa fa-edit"></i> Edit</a></li>
+	      <li><a href="javascript:void(0);" id="TogglePublishLink"  ><i class="fa fa-cloud-download" ></i><!-- ko if: Published--> Unpublish<!-- /ko --><!-- ko ifnot: Published--> Publish<!-- /ko --></a></li>
+	   </ul>
+	</div>

@@ -1,0 +1,61 @@
+@model Ark.Models.ArticleCategory
+
+@{
+    ViewBag.Title = "Article Category";
+	var singleModel = new Ark.Models.ArticleCategory();
+}
+
+
+
+
+<div data-bind="stopBinding: true">
+
+
+
+
+
+<table id="ArticleCategoryList" class="table table-bordered">
+		    <tr>
+        <th colspan="4">
+			<td>@Model.Name</td>
+			<td><a class="btn btn-xs btn-primary pull-right" data-bind="click: Add"><i class="fa fa-plus" data-bind="css: { 'fa-spinner fa-spin': IsLoading(), 'fa-plus': !IsLoading() }"></i> Add</a></td>
+        </th>
+    </tr>
+
+        <!-- ko foreach: List -->
+            <!-- ko template:{name : 'ArticleCategoryTemplate', with:$data} -->
+            <!-- /ko -->
+        <!-- /ko -->
+
+</table>
+
+<div class="text-center">
+<ul class="pagination pagination-sm" data-bind="foreach: Paging" id="ArticleCategoryPaging">
+        <li data-bind="css: { active: $parent.CurrentPage == pageNumber }" ><a data-bind="    text: pageNumber, click: $parent.Page.bind($parent)"></a></li>
+    </ul>
+	</div>
+
+<script type="text/html" id="ArticleCategoryTemplate">
+    @Html.Partial("../../Views/ArticleCategory/ListItem", singleModel)
+</script>
+
+
+
+
+</div>
+
+@section modals
+{
+
+}
+
+@section Scripts {
+	 @Html.Action("GetReplacementList", "ArticleCategory")
+	@Html.Action("Edit", "ArticleCategory")
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/Javascript/Base.js")
+    @Scripts.Render("~/Scripts/Javascript/ArticleCategoryViewModel.js")
+
+
+}

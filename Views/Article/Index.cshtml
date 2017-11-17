@@ -1,0 +1,113 @@
+@{
+    string category = ViewBag.Category;
+    ViewBag.Title = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(category);
+
+    var singleModel = new Ark.Models.Article();
+
+    bool isAdmin = true;
+
+}
+
+<div class="fullscreen">
+
+    <div data-bind="stopBinding: true">
+
+        <div class="">
+
+            <div class="container text-white" style="padding-top: 100px;">
+                <div class="section-title">
+                    <h1 class="text-center">Behind the <b>Scenes</b></h1>
+                    <p class="lead">The <em>digital</em> agency <b>story</b></p>
+                </div>
+            </div>
+
+
+            @Html.Hidden("category", category)
+            @Html.Hidden("isAdmin", isAdmin)
+
+
+            <section id="ArticleList" class="section">
+                <div class="container">
+
+                    <section class="section">
+                        <div class="container">
+                            <div class="row-fluid categories">
+                                <div class=" hidden col-xs-6">
+                                    @*		@if (isAdmin)
+			{
+		    *@
+                                    <div class="breadcrumb-section">
+                                        <ul class="breadcrumb breadcrumb-top">
+
+                                            <li class="lead dot-legend text-white"><i class="fa fa-circle text-secondary"></i><a href="/"><span class="text-white">Home</span></a></li>
+                                            <li class="dropdown"><span class="lead dot-legend text-white"><i class="fa fa-circle text-primary"></i>@Html.Action("CategoryListDropdown", "ArticleCategory", new { activeCategory = category })</span></li>
+                                            @foreach (var crumb in ViewBag.BreadCrumbs)
+                                            {
+                                                @Html.Raw("<li>")
+                                                if (crumb.Value == "")
+                                                {
+                                                @Html.Raw((string)crumb.Key)
+                                                }
+                                                else
+                                                {
+                                                @Html.ActionLink((string)crumb.Key, (string)crumb.Value)
+                                                }
+
+                                                @Html.Raw("</li>")
+                                            }
+
+                                        </ul>
+                                    </div>
+                                    @*}*@
+
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="breadcrumb-section">
+                                        <ul class="list-inline breadcrumb breadcrumb-top">
+                                            <li><a data-bind="click: Add" href="javascript:void(0);" class="btn btn btn-primary"><i class="fa fa-plus" data-bind="    css: { 'fa-spinner fa-spin': false, 'fa-plus': true }"></i>Add</a></li>
+                                            <li><a href="/articleCategory/index" class="btn btn btn-secondary">Categories</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="articles" class="section">
+                        <div class="container">
+                            @Html.Action("ArticleList", new { Category = category, Type = ViewBag.Type, Page = ViewBag.Page })
+                        </div>
+                    </section>
+
+                </div>
+            </section>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+    @section modals {
+        @Html.Action("Edit", "Article")
+    }
+
+    @section Scripts {
+        @Styles.Render("~/Content/pickadate")
+        @Styles.Render("~/Content/wysiwyg.css")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/Scripts/Javascript/Base.js")
+        @Scripts.Render("~/bundles/pickadate")
+        @Scripts.Render("~/Scripts/summernote.min.js")
+        @Scripts.Render("~/Scripts/JavaScript/jquery.tagsinput.js")
+        @Scripts.Render("~/Scripts/Javascript/ArticleViewModel.js")
+        @Scripts.Render("~/Scripts/Javascript/ArticleImageViewModel.js")
+        @Scripts.Render("~/bundles/jqueryuploader")
+    }
+
+</div>

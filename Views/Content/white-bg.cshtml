@@ -1,0 +1,47 @@
+@{
+ViewBag.Title = "Navigation White Background";
+ViewBag.PageBack = "Headers";
+}
+
+@Html.Partial("navigation-white-bg")
+@Html.Partial("promo-default")
+
+<div class="parallax-window"></div>
+
+<div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+      <li class="breadcrumb-item"><a href="/headers">@ViewBag.PageBack</a></li>
+     <li class="breadcrumb-item active">@ViewBag.Title</li>
+    </ol>
+</div>
+
+<section style="height:500px;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+               <h1 class="mt-4 font-weight-normal">Navigation White Background</h1>
+               <p><b>Classes to use:</b> .navbar-light .bg-white</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+    <button id="codecopy" class="copy-btn">Copy</button>
+
+            <div class="copy-code" data-clipboard-target="#codecopy">
+<xmp id="htmlsource">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+    <li class="breadcrumb-item"><a href="/headers">Headers</a></li>
+    <li class="breadcrumb-item active">Navigation White Background</li>
+</ol>
+</xmp>
+
+
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

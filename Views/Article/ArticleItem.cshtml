@@ -1,0 +1,38 @@
+@model Ark.Models.Article
+
+
+
+<div class="hidden">
+	<div id="@Html.IdFor(model => model.IsPublished)" data-bind="text: @Html.IdFor(model =>model.IsPublished)">@Model.IsPublished</div>
+</div>
+
+
+
+	<div class="card">
+		<div class="img" id="@Html.IdFor(model => model.ArticleImageID)">
+			<div class="card-image">
+				<img src="/image.png?id=@Model.ArticleImageID&type=big" class="img-responsive">
+				<span class="card-title">
+					<em id="@Html.IdFor(model => model.ReadableDate)" data-bind="text: @Html.IdFor(model =>model.ReadableDate)">@Model.ReadableDate</em>
+					<span id="@Html.IdFor(model => model.Author)" data-bind="text: @Html.IdFor(model =>model.Author)">@Model.Author</span>
+				</span>
+				<div class="card-overlay"></div>
+			</div>
+		</div>
+		<div class="card-content">
+			<div class="card-profile pull-right">
+                @ViewBag.EditHtml
+        	</div>
+
+        	<a class="article-category" href="javascript:void(0);">World</a>
+
+			<a href="@Model.ArticleUrl" id="DetailsLink" class="@Model.PublishClass">
+				<h2 id="@Html.IdFor(model => model.Subject)" data-bind="text: @Html.IdFor(model =>model.Subject)" class="dots">@Model.Subject</h2>
+			</a>
+			<div class="copy dots">
+				<p id="@Html.IdFor(model => model.Summary)" data-bind="text: @Html.IdFor(model =>model.Summary)">@Model.Summary</p>
+			</div>
+		</div>
+	</div>
+
+

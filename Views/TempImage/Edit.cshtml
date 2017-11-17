@@ -1,0 +1,25 @@
+@model Ark.Models.TempImage
+@using DotSlash.Components.Html
+
+@{
+    var singleModel = new Ark.Models.TempImage();
+}
+
+<div data-bind="stopBinding: true">
+<div id="@Html.EditIDFor(Model)" style="display:block;" class="modal fade in">
+
+
+    @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.TempImageID)
+        @Html.HiddenFor(model => model.CreateDate, new { @data_bind = "value: " + Html.DisplayNameFor(model => model.CreateDate) })
+
+
+        <div class="form-group" data-bind="style: block">
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.Data);
+            </div>
+        </div>
+
+</div>
+    </div>

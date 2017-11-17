@@ -1,0 +1,9 @@
+﻿@model Ark.Models.FormTextControl
+
+<div class="form-group req @Model.Label">
+    <label for="@Model.Label" class="col-sm-4 control-label">@Model.Label</label>
+    <div class="col-sm-8">
+        <textarea @Model.UnobtrusiveAttributeString name="@Model.HtmlName"  @Model.AttributeString class="form-control" rows="3">@Model.Value</textarea>
+        @Model.Validation
+    </div>
+</div>

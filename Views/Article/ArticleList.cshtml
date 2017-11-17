@@ -1,0 +1,84 @@
+@model PagedList.IPagedList<Ark.Models.Article>
+
+
+
+
+@using PagedList.Mvc
+@{
+    string category = ViewBag.Category;
+    string Template = "ArticleItem";
+
+    if (ViewBag.Type == 1)
+    {
+        Template = "ArticleItemSmall";
+    }
+
+    //bool isAdmin = Utilities.IsUserInRole("administrator");
+    bool isAdmin = true;
+
+    if (isAdmin && ViewBag.Type == 0)
+    {
+        ViewBag.EditHtml = Html.Partial("ArticleItemEditable");
+    }
+    else
+    {
+        ViewBag.EditHtml = "";
+    }
+
+    Layout = null;
+}
+
+@if (ViewBag.Type == 1)
+{
+    @:<div data-bind="stopBinding: true" class="short">
+}
+else
+{
+    @:<div class="row" data-bind="stopBinding: true">
+}
+
+
+@foreach (Ark.Models.Article article in Model)
+{
+                    <div class="col-sm-4" id="ArticleRow-@article.ArticleID" >
+	                @Html.Partial(Template, article)
+                    </div>
+}
+
+@if (ViewBag.Type == 1)
+{
+<a href="~/articles/@category">View all News Articles</a>
+}
+else
+{
+
+<section class="section">
+	<div class="container-fluid">
+        <div class="pagination">
+                <p> Page  @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+            @if (Model.HasPreviousPage)
+            {
+                <a href="~/articles/@Html.Raw((string)ViewBag.Category + "/" + ((int)((ViewBag.Page) ?? 2) - 1))"><<</a>
+            }
+            @for (int i = 1; i <= @Model.PageCount; i++)
+            {
+                if ((Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) != i)
+                {
+                <a href="~/articles/@Html.Raw((string)ViewBag.Category + "/" + i)">@i</a>
+                }
+                else
+                {
+                    <a>@i</a>
+                }
+            }
+            @if (Model.HasNextPage)
+            {
+                <a href="~/articles/@Html.Raw((string)ViewBag.Category + "/" + ((int)((ViewBag.Page) ?? 0) + 1))">>></a>
+            }
+            </div>
+	</div>
+</section>
+}
+        </div>
+
+

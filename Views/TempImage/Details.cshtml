@@ -1,0 +1,55 @@
+@model Ark.Models.TempImage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TempImage</h4>
+	<hr />
+    <div class="form-horizontal">
+<div class="form-group">
+                <div class="col-sm-2 control-label">
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </div>
+
+                <div class="col-sm-10">
+                    @Html.DisplayFor(model => model.CreateDate)
+                </div>
+            </div>
+
+<div class="form-group">
+                <div class="col-sm-2 control-label">
+                    @Html.DisplayNameFor(model => model.Filename)
+                </div>
+
+                <div class="col-sm-10">
+                    @Html.DisplayFor(model => model.Filename)
+                </div>
+            </div>
+
+<div class="form-group">
+                <div class="col-sm-2 control-label">
+                    @Html.DisplayNameFor(model => model.Extension)
+                </div>
+
+                <div class="col-sm-10">
+                    @Html.DisplayFor(model => model.Extension)
+                </div>
+            </div>
+
+<div class="form-group">
+                <div class="col-sm-2 control-label">
+                    @Html.DisplayNameFor(model => model.Data)
+                </div>
+
+                <div class="col-sm-10">
+                    @Html.DisplayFor(model => model.Data)
+                </div>
+            </div>
+
+    </div>
+</div>
+

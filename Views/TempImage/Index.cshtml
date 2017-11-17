@@ -1,0 +1,47 @@
+@model Ark.Models.TempImage
+@using DotSlash.Components.Html
+
+@{
+    ViewBag.Title = "TempImage";
+	var singleModel = new Ark.Models.TempImage();
+}
+<div data-bind="stopBinding: true">
+
+<h2>TempImage</h2>
+
+
+<table id="@Html.ListIDFor(singleModel)" class="table table-bordered">
+		    <tr>
+        <th>
+			@Html.SortableColumnFor(model => model.CreateDate)
+        </th>
+        <th>
+			@Html.SortableColumnFor(model => model.Filename)
+        </th>
+        <th>
+			@Html.SortableColumnFor(model => model.Extension)
+        </th>
+        <th>
+			@Html.SortableColumnFor(model => model.Data)
+        </th>
+        <th width="1%"><a class="btn btn-sm btn-primary table-add" data-bind="click: Add"><i class="fa fa-plus" data-bind="css: { 'fa-spinner fa-spin': IsLoading(), 'fa-plus': !IsLoading() }"></i> Add</a></th>
+    </tr>
+
+        <!-- ko foreach: List -->
+            <!-- ko template:{name : '@Html.TemplateIDFor(singleModel)', with:$data} -->
+            <!-- /ko -->
+        <!-- /ko -->
+
+</table>
+
+<div class="text-center">
+<ul class="pagination pagination-sm" data-bind="foreach: Paging" id="@Html.PagingIDFor(singleModel)">
+        <li data-bind="css: { active: $parent.CurrentPage == pageNumber }" ><a data-bind="    text: pageNumber, click: $parent.Page.bind($parent)"></a></li>
+    </ul>
+	</div>
+
+<script type="text/html" id="@Html.TemplateIDFor(singleModel)">
+    @Html.Partial("../../Views/TempImage/ListItem", singleModel)
+</script>
+
+</div>

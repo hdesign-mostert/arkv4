@@ -1,0 +1,43 @@
+﻿@model Ark.Models.FormDropdownControl
+
+@{
+    Model.Attributes.Add(new Ark.Models.HtmlAttribute("class", "form-control collapse in"));
+
+    string label = Model.Label;
+
+    if (!string.IsNullOrEmpty(Model.DisplayName))
+    {
+        label = Model.DisplayName;
+    }
+}
+
+@if(Ark.HtmlExtensions.CurrentContainer.UseKnockout)
+{
+    <div class="form-group">
+        <label for="" class="col-sm-4 control-label">@label</label>
+        <div class="col-sm-8">
+            <select @Html.Raw(Model.AttributeString) @Model.UnobtrusiveAttributeString id="@Model.HtmlID" name="@Model.HtmlName">
+                @foreach (SelectListItem item in Model.Items)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            @Model.Validation
+        </div>
+    </div>
+}
+else
+{
+    <div class="form-group @Model.CssClass">
+        <label for="" class="col-sm-4 control-label">@label</label>
+        <div class="col-sm-8">
+            <select @Html.Raw(Model.AttributeString) @Model.UnobtrusiveAttributeString id="@Model.ID" name="@Model.HtmlName">
+                @foreach (SelectListItem item in Model.Items)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            @Model.Validation
+        </div>
+    </div>
+}

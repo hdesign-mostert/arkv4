@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title - A.R.K</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/content/css/ark.css">
+    <!-- Material Design Bootstrap -->
+<!--<link rel="stylesheet" href="~/content/css/mdb.css">-->
+
+    <!-- Font -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,600,700|Material+Icons" rel="stylesheet">
+
+    <!-- Favicons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/ico/apple-touch-icon-144-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/ico/apple-touch-icon-114-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/ico/apple-touch-icon-72-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" href="~/ico/apple-touch-icon-57-precomposed.png" />
+	<link rel="shortcut icon" href="~/ico/favicon.png" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body data-spy="scroll" data-target="#sidemenu" data-offset="15">
+    <div class="page home-page">
+        @Html.Partial("Navigation-default")
+        @RenderBody()   
+        @Html.Partial("footer")
+    </div>
+	<div class="check-querie"></div>
+
+    <!-- Main vendor Scripts-->
+<!--        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!--  <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>-->
+    <script src="scripts/parallax.min.js"></script>
+    <script src="scripts/google-maps.js"></script>
+	<script src="scripts/popper.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/apps.js"></script>
+    <script src="scripts/affix.js"></script>
+
+    <script>
+        $(document).ready(function(){
+   // jQuery methods go here...
+});
+        $('.navbar').affix({
+            offset:{
+                top: $('#header').outerHeight(),
+                bottom: $('#header').outerHeight() - 200
+            }
+        });
+
+        $('#sidemenu').affix({
+            offset:{
+                top: $('#header').outerHeight(),
+                bottom: $('footer').outerHeight() + 50
+            }
+        });
+
+        $('#sidemenu2').affix({
+            offset:{
+                top: $('#header').outerHeight(),
+                bottom: $('footer').outerHeight() + 50
+            }
+        });
+    </script>
+
+    <script>
+      function initMap() {
+        // Styles for night mode map.
+        var map = new google.maps.Map(document.getElementById('map-night-mode'), {
+          center: {lat: -25.798377, lng: 28.325244},
+          zoom: 14,
+          styles: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]
+        });
+
+        // Custom Marker image
+        var image = '/content/images/map.png';
+        var beachMarker = new google.maps.Marker({
+          position: {lat: -25.798377, lng: 28.325244},
+          map: map,
+          icon: image
+        });
+      }
+    </script>
+
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCmfu_-affAVqIl6ey4v3tu-ZxXuVrUPk&callback=initMap"
+    async defer></script>
+
+
+
+    @RenderSection("modals", false)
+    @RenderSection("Scripts", false)
+
+
+  </body>
+</html>
+
+

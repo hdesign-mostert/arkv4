@@ -1,0 +1,44 @@
+﻿using Ark.Controllers;
+using CustomRoutes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Http;
+
+namespace Ark
+{
+    public class RouteConfig
+    {
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("image.png");
+
+            routes.MapMvcAttributeRoutes();
+
+            RouteValueDictionary customConstraints = new RouteValueDictionary();
+            customConstraints.Add("Custom", new CustomConstraint());
+
+            CustomRouteHandler handler = new CustomRouteHandler(Assembly.GetExecutingAssembly());
+            handler.RegisterErrorHandler(new ContentController());
+
+            routes.MapRoute(
+                name: "Custom",
+                url: "{*all}",
+                defaults: null,
+                constraints: customConstraints
+            ).RouteHandler = handler;
+
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                 );
+        }
+    }
+}

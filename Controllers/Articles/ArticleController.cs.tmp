@@ -1,0 +1,343 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Ark.Models;
+using System.Web.Routing;
+using PagedList;
+using System.Configuration;
+
+namespace Ark.Controllers
+{
+    public class ArticleController : Controller
+    {
+        private DatabaseContext db = new DatabaseContext();
+        Dictionary<string, string> crumbs = new Dictionary<string, string>();
+
+        [Route("articles/{category}/{type:int}/{page:int}")]
+        [Route("articles/{category}/{page:int}")]
+        [Route("articles/{category}")]
+        public ActionResult GetByCategory(string category, int type = 0, int page = 1)
+        {
+            ViewBag.Type = type;
+            ViewBag.Page = page;
+            ViewBag.BreadCrumbs = crumbs;
+            ViewBag.Category = category;
+
+            return View("Index");
+        }
+
+
+        // GET: /Article/
+        [Route("articles/all")]
+        public ActionResult Index()
+        {
+            ViewBag.Type = 0;
+
+            ViewBag.Category = "all";
+
+            ViewBag.BreadCrumbs = crumbs;
+
+
+            return View();
+        }
+
+        public ActionResult ArticleList(string category, int type, int articleID = -1, int size = -1 , int page = 1)
+        {
+
+            ViewBag.Category = category;
+            ViewBag.Type = type;
+            ViewBag.Page = page;
+            return View(GetArticleList(category, type, articleID, size , page));
+        }
+
+        private IPagedList<Article> GetArticleList(string category, int type, int articleID = -1, int size = -1, int page = 1)
+        {
+            IEnumerable<Article> articles = null;
+            IEnumerable<Article> filtered = null;
+
+            ViewBag.Category = category;
+
+            if (type == 0)
+            {
+                articles = (from tbl in db.Articles
+                            select new
+                            {
+                                ArticleID = tbl.ArticleID,
+                                ArticleImageID = (from img in db.ArticleImages
+                                                  where img.ArticleID == tbl.ArticleID
+                                                  select img.ArticleImageID).FirstOrDefault(),
+                                Category = (from cat in db.Categories
+                                            where cat.ArticleCategoryID == tbl.CategoryID
+                                            select cat.Name).FirstOrDefault(),
+                                Author = tbl.Author,
+                                CategoryID = tbl.CategoryID,
+                                Summary = tbl.Summary,
+                                Content = tbl.Content,
+                                CreateDate = tbl.CreateDate,
+                                IsPublished = tbl.IsPublished,
+                                PublishDate = tbl.PublishDate,
+                                Subject = tbl.Subject == null ? String.Empty : tbl.Subject,
+                                PublishClass = tbl.IsPublished ? "IsPublished" : "disabled"
+                            }).ToList().Select(x =>
+                                   new Article()
+                                   {
+                                       ArticleID = x.ArticleID,
+                                       ArticleImageID = x.ArticleImageID,
+                                       Author = x.Author,
+                                       Category = x.Category,
+                                       CategoryID = x.CategoryID,
+                                       Summary = x.Summary,
+                                       Content = x.Content,
+                                       CreateDate = x.CreateDate,
+                                       IsPublished = x.IsPublished,
+                                       PublishDate = x.PublishDate,
+                                       Subject = x.Subject,
+                                       PublishClass = x.PublishClass,
+                                       ReadableDate = x.PublishDate.ToLongDateString(),
+                                       ArticleUrl = String.Format(Ark.Controllers.Helpers.UrlHelper.ResolveUrl("~/articles/{0}/{1}/{2}"), x.Category.ToLower(), Ark.Controllers.Helpers.UrlHelper.CleanUrl(x.Subject).ToLower(), x.ArticleID)
+                                   });
+
+
+            }
+            else if (type == 1)
+            {
+                articles = (from tbl in db.Articles
+                            select new
+                            {
+                                ArticleID = tbl.ArticleID,
+                                Subject = tbl.Subject,
+                                ArticleImageID = (from img in db.ArticleImages where img.ArticleID == tbl.ArticleID select img.ArticleImageID).FirstOrDefault(),
+                                Category = (from cat in db.Categories where cat.ArticleCategoryID == tbl.CategoryID select cat.Name).FirstOrDefault(),
+                                IsPublished = tbl.IsPublished,
+                                Author = tbl.Author,
+                                PublishDate = tbl.PublishDate
+                            }).ToList().Select(x =>
+                                    new Article()
+                                    {
+                                        ArticleID = x.ArticleID,
+                                        ArticleImageID = x.ArticleImageID,
+                                        Subject = x.Subject,
+                                        Category = x.Category,
+                                        IsPublished = x.IsPublished,
+                                        Author = x.Author,
+                                        ReadableDate = x.PublishDate.ToLongDateString(),
+                                        ArticleUrl = String.Format(Ark.Controllers.Helpers.UrlHelper.ResolveUrl("~/articles/{0}/{1}/{2}"), x.Category.ToLower(), Ark.Controllers.Helpers.UrlHelper.CleanUrl(x.Subject).ToLower(), x.ArticleID)
+                                    });
+            }
+
+            if (articles == null)
+                return null;
+
+            var articleTest = articles.ToList();
+
+
+            if (!string.IsNullOrEmpty(category) && string.Compare(category, "all", true) != 0)
+            {
+                filtered = (from tbl in articles
+                            where String.Compare(tbl.Category, category, true) == 0
+                            select tbl);
+            }
+            else
+                filtered = articles;
+
+
+            if (articleID != -1)
+            {
+                filtered = (from tbl in filtered where tbl.ArticleID != articleID where tbl.IsPublished select tbl);
+            }
+
+            int pageSize = 12;
+            string articlesPerPage = ConfigurationManager.AppSettings["ArticlesPerPage"];
+
+            int.TryParse(articlesPerPage, out pageSize);
+
+            pageSize = Math.Abs(pageSize);
+            pageSize = pageSize == 0 ? 12 : pageSize;
+
+            if (size > -1)
+                return filtered.OrderByDescending(tbl => tbl.PublishDate).Take(size).ToPagedList(page, pageSize);
+            else
+                return filtered.OrderByDescending(tbl => tbl.PublishDate).ToPagedList(page, pageSize);
+        }
+
+
+        [Route("articles/{category}/{articleTitle}/{id:int}")]
+        public ActionResult Details(int? id, string category = "")
+        {
+            ViewBag.ArticleID = id;
+            ViewBag.Category = category;
+
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var articles = (from tbl in db.Articles
+                            where tbl.ArticleID == id
+                            select new
+                            {
+                                ArticleID = tbl.ArticleID,
+                                ArticleImageID = (from img in db.ArticleImages where img.ArticleID == tbl.ArticleID select img.ArticleImageID).FirstOrDefault(),
+                                Category = (from cat in db.Categories where cat.ArticleCategoryID == tbl.CategoryID select cat.Name).FirstOrDefault(),
+                                Author = tbl.Author,
+                                CategoryID = tbl.CategoryID,
+                                Summary = tbl.Summary,
+                                Content = tbl.Content,
+                                CreateDate = tbl.CreateDate,
+                                IsPublished = tbl.IsPublished,
+                                PublishDate = tbl.PublishDate,
+                                Subject = tbl.Subject
+                            }).ToList().Select(x =>
+                          new Article()
+                          {
+                              ArticleID = x.ArticleID,
+                              ArticleImageID = x.ArticleImageID,
+                              Author = x.Author,
+                              Category = x.Category,
+                              CategoryID = x.CategoryID,
+                              Summary = x.Summary,
+                              Content = x.Content,
+                              CreateDate = x.CreateDate,
+                              IsPublished = x.IsPublished,
+                              PublishDate = x.PublishDate,
+                              Subject = x.Subject,
+                              ReadableDate = x.PublishDate.ToLongDateString(),
+                              ArticleUrl = String.Format(Ark.Controllers.Helpers.UrlHelper.ResolveUrl("~/articles/{0}/{1}/{2}"), x.Category.ToLower(), Ark.Controllers.Helpers.UrlHelper.CleanUrl(x.Subject).ToLower(), x.ArticleID)
+                          });
+
+            Article article = articles.FirstOrDefault();
+            if (article == null)
+            {
+                return Redirect(String.Format(Ark.Controllers.Helpers.UrlHelper.ResolveUrl("~/articles/{0}"), category.ToLower()));
+            }
+            if (!article.IsPublished)
+                return RedirectPermanent("~/articles");
+
+            crumbs.Add(article.Subject, "");
+
+            ViewBag.BreadCrumbs = crumbs;
+
+
+
+            return View(article);
+        }
+
+        [Route("article/TogglePublish/{id:int}")]
+        [Route("article/{category}/TogglePublish/{id:int}")]
+        public ActionResult TogglePublish(int? id, string category = "")
+        {
+
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+
+            Article article = db.Articles.Find(id);
+
+            if (article == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            article.IsPublished = !article.IsPublished;
+
+            string url = String.Format(Ark.Controllers.Helpers.UrlHelper.ResolveUrl("~/articles/{0}"), category.ToLower());
+
+
+            db.Entry(article).State = EntityState.Modified;
+            db.SaveChanges();
+            return Redirect(url);
+        }
+
+        // GET: /Article/Create
+        public ActionResult Create()
+        {
+            return View(new Article());
+        }
+
+        // POST: /Article/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ArticleID,CategoryID,Subject,Content,Author,IsDraft,CreateDate,PublishDate")] Article article)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Articles.Add(article);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(article);
+        }
+
+        // GET: /Article/Edit/5
+        [Route("article/edit")]
+        public ActionResult Edit()
+        {
+            var categories = db.Categories.ToList();
+
+            List<SelectListItem> items = (from cat in categories select new SelectListItem { Text = cat.Name, Value = cat.ArticleCategoryID.ToString() }).ToList();
+
+            ViewData["Categories"] = new SelectList(items, "Value", "Text", "Default");
+
+            return View(new Article() { PublishDate = DateTime.Now });
+
+
+        }
+
+        // POST: /Article/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ArticleID,CategoryID,Subject,Content,Author,IsDraft,CreateDate,PublishDate")] Article article)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(article).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(article);
+        }
+
+        // GET: /Article/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Article article = db.Articles.Find(id);
+            if (article == null)
+            {
+                return HttpNotFound();
+            }
+            return View(article);
+        }
+
+        // POST: /Article/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Article article = db.Articles.Find(id);
+            db.Articles.Remove(article);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

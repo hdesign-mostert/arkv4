@@ -1,0 +1,31 @@
+@{
+ViewBag.Title = "Navigation Black Background";
+ViewBag.PageBack = "Headers";
+}
+
+@Html.Partial("navigation-default")
+@Html.Partial("promo-default")
+
+<div>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+        <li class="breadcrumb-item"><a href="/headers">@ViewBag.PageBack</a></li>
+        <li class="breadcrumb-item active">@ViewBag.Title</li>
+    </ol>
+</div>
+
+<section style="height:500px;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+               <h2 class="mt-4 font-weight-normal">Navigation using black background</h2>
+               <p><b>Classes to use:</b> .navbar-dark .bg-black</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+</section>
+
+

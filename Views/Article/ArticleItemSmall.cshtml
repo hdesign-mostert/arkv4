@@ -1,0 +1,37 @@
+@model Ark.Models.Article
+
+
+
+<div class="hidden">
+    <div id="@Html.IdFor(model => model.ArticleID)" data-bind="text: @Html.IdFor(model => model.ArticleID)">@Model.ArticleID</div>
+</div>
+
+
+<a href="@Model.ArticleUrl" id="DetailsLink">
+
+
+
+			<div class="card" id="sidebar">
+
+
+
+    <div class="img" id="@Html.IdFor(model => model.ArticleImageID)">
+	    <a href="@Model.ArticleUrl" id="DetailsLink" class="card-image">
+        <img src="/image.png?id= @Model.ArticleImageID&type=small" class="img-responsive">
+      </a>
+    </div>
+
+
+    <div class="card-content">
+
+        <a href="@Model.ArticleUrl" id="DetailsLink"><h3 class="m0 article-title" id="@Html.IdFor(model => model.Subject)" data-bind="text: @Html.IdFor(model => model.Subject)">@Model.Subject</h3></a>
+
+    </div>
+
+
+
+
+			</div>
+
+
+

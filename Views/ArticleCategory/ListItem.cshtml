@@ -1,0 +1,9 @@
+@model Ark.Models.ArticleCategory
+
+
+<tr>
+	<td width="1%"><div id="@Html.IdFor(model => model.ArticleCategoryID)" data-bind="text: @Html.IdFor(model => model.ArticleCategoryID)">@Model.ArticleCategoryID</div></td>
+	<td><div class="m0 article-title" id="@Html.IdFor(model => model.Name)" data-bind="text: @Html.IdFor(model => model.Name)">@Model.Name</div>
+	<td width="1%" align="center"><a href="" data-bind="click: Delete"><i class="fa fa-trash-o"></i></a></td>
+	<td width="1%" align="center"><a href="" data-bind="click: Load"><i class="fa fa-edit"></i></a></td>
+</tr>

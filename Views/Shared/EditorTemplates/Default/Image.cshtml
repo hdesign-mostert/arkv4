@@ -1,0 +1,21 @@
+﻿@model Ark.Models.FormTextControl
+
+@{
+
+}
+
+<div class="row fileupload-buttonbar">
+
+    <input type="hidden" id="FileCount" value="0" />
+    <span id="cmdFileUpload" class="file-wrapper">
+        <input type="file" name="fileupload" id="fileupload" @Model.AttributeString />
+
+        <span class="btn btn-primary"><i class="icon-plus"></i> Add Files...</span>
+    </span>
+
+    @Model.Validation
+
+    <div class="hide" id="filelistholder"></div>
+
+
+</div>

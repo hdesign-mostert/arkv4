@@ -1,0 +1,34 @@
+﻿@model Ark.Models.FormTextControl
+
+@{
+    Model.Attributes.Add(new Ark.Models.HtmlAttribute("class", "form-control"));
+    string id = "";
+
+    if (!string.IsNullOrEmpty(Model.ID))
+    {
+        id = "id=\"" + Model.ID + "\"";
+    }
+
+    string label = Model.Label.Replace(" ", "_").ToLower();
+}
+
+@if (Ark.HtmlExtensions.CurrentContainer.UseKnockout)
+{
+      <div>THROW NOT IMPLEMENTED</div>
+}
+else
+{
+    <div class="form-group">
+        <label for="@Model.Label" class="col-sm-4 control-label">@Model.Label</label>
+        <div class="col-sm-8 radio-btns" @id>
+            <input type="radio" name="@Model.HtmlName" id="rb_@(label)_yes" value="true" @Model.UnobtrusiveAttributeString><label for="rb_@(label)_yes"> Yes</label>
+            <input type="radio" name="@Model.HtmlName" id="rb_@(label)_no" value="false"><label for="rb_@(label)_no"> No</label>
+            @Model.Validation
+        </div>
+    </div>
+}
+
+
+
+
+

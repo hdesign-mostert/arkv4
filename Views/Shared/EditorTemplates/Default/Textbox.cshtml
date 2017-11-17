@@ -1,0 +1,39 @@
+﻿@model Ark.Models.FormTextControl
+
+@{
+    Model.Attributes.Add(new Ark.Models.HtmlAttribute("class", "form-control"));
+    string id = "";
+
+    if (!string.IsNullOrEmpty(Model.ID))
+    {
+        id = "id=\"" + Model.ID + "\"";
+    }
+
+    string label = Model.Label;
+
+    if (!string.IsNullOrEmpty(Model.DisplayName))
+    {
+        label = Model.DisplayName;
+    }
+}
+
+@if (Ark.HtmlExtensions.CurrentContainer.UseKnockout)
+{
+    <div class="form-group req @Model.Label">
+        <label for="@Model.Label" class="col-sm-4 control-label">@label</label>
+        <div class="col-sm-8">
+            <input @Model.AttributeString @Model.UnobtrusiveAttributeString type="@Model.Type" id="@Model.HtmlID" name="@Model.HtmlName" placeholder="@Model.Label" value="@Model.Value">
+            @Model.Validation
+        </div>
+    </div>
+}
+else
+{
+    <div class="form-group @Model.CssClass">
+        <label for="@Model.Label" class="col-sm-4 control-label">@label</label>
+        <div class="col-sm-8">
+            <input @Model.AttributeString @Model.UnobtrusiveAttributeString type="@Model.Type" name="@Model.HtmlName" @Html.Raw(id) placeholder="@Model.Label" value="@Model.Value">
+            @Model.Validation
+        </div>
+    </div>
+}

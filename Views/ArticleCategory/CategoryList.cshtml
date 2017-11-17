@@ -1,0 +1,17 @@
+@model List<Ark.Models.ArticleCategory>
+
+
+@{
+ Layout=null;
+ string Category = ViewBag.Category;
+}
+
+@foreach (Ark.Models.ArticleCategory category in Model)
+{
+    string extraClass = "";
+    if (String.Compare(Category, category.Name, true) == 0)
+    {
+        extraClass = "active";
+    }
+    <li><a class="@extraClass" href="~/articles/@category.Name.ToLower()" >@category.Name</a></li>
+}

@@ -1,0 +1,91 @@
+@model Ark.Models.ArticleImage
+
+@{
+    ViewBag.Title = "Edit";
+    MvcHtmlString attributes;
+    var UnobtrusiveValidators = Html.GetUnobtrusiveValidationAttributes("ArticleImageID");
+
+    if (UnobtrusiveValidators == null || UnobtrusiveValidators.Count == 0)
+    {
+        attributes = new MvcHtmlString("");
+    }
+
+    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+    foreach (string key in UnobtrusiveValidators.Keys)
+    {
+        sb.Append(key);
+        sb.Append("=\"");
+        sb.Append(UnobtrusiveValidators[key]);
+        sb.Append("\"");
+    }
+
+    attributes = new MvcHtmlString(sb.ToString());
+}
+
+
+
+<div data-bind="stopBinding: true">
+
+    <div id="ArticleImageEdit">
+
+        <input name="ArticleImageID" @attributes  id="ArticleImageIDVal" type="hidden"/>
+        @Html.ValidationMessageFor(x => x.ArticleImageID)
+
+        <div class="file-upload-styles">
+            @Html.FormControlFor(model => model.Data, ControlType.Image, false)
+            <i class="fa fa-cog fa-spin" alt="Loader" id="imgLoader" style="display: none;"></i>
+        </div>
+        <div class="" data-bind="style: 'block'"></div>
+    </div>
+
+
+</div>
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <div class="uploadifive-queue-item Upload-Container">
+        <span class="Upload-Text">
+            <div class="LayoutLeft clearfix MyHeight">
+                <span class="Left">
+                    <span class="filename">{%=file.name%}</span>
+                    {% if (file.error) { %}
+                <div class="error-label"><span class="label label-danger">Error: {%=file.error%}</span></div>
+            {% } %}
+            {% if (!o.files.error) { %}
+                <div class="gallery-progress">
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+                </div>
+            {% } %}
+            {% if (!i) { %}
+                    <a class="btn btn-danger">Cancel</a>
+            {% } %}
+                </span>
+            </div>
+        </span>
+    </div>
+
+{% } %}
+</script>
+
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <div iseventdocument="true" id="{%=file.ID%}" class="uploadifive-queue-item Upload-Container">
+        <span class="Upload-Text">
+            <div class="LayoutLeft clearfix MyHeight">
+                <span class="Left">
+                    <span class="filename">{%=file.name%}</span>
+                    <input type="text" placeholder="Document Title" />
+                    <a href="javascript:DeleteDocument({%=file.ID%})" class="btn btn-sm btn-primary">Remove</a><br />
+                </span>
+            </div>
+        </span>
+    </div>
+{% } %}
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

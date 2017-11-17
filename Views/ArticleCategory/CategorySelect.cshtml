@@ -1,0 +1,49 @@
+@model List<Ark.Models.ArticleCategory>
+
+@{
+    ViewBag.Title = "Category Select";
+
+    Layout = null;
+}
+<div data-bind="stopBinding: true">
+
+    <div id="ReselectCategory" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-bind="click: Cancel" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2>CategorySelect</h2>
+                </div>
+
+                @using (Html.BeginForm(String.Empty, String.Empty, FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    <div class="modal-body">
+
+                        <div class="btn-group">
+						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						    Select Category to move to <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						    @foreach (Ark.Models.ArticleCategory category in Model)
+                            {
+                                <li data-bind="css: Name() == '@category.Name' ? 'hidden': ''"><a data-bind="click: function(){Save(@category.ArticleCategoryID)}" href="#">@category.Name</a></li>
+                            }
+						  </ul>
+						</div>
+
+
+                    </div>
+                    <a data-bind="click: Save"></a>
+
+
+                    <div class="modal-footer">
+                        <a class="btn btn-default" data-dismiss="modal" aria-hidden="true" data-bind="click: Cancel">Cancel</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+

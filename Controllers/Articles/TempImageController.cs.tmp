@@ -1,0 +1,126 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Ark.Models;
+
+namespace Ark.Controllers
+{
+    public class TempImageController : Controller
+    {
+        private DatabaseContext db = new DatabaseContext();
+
+        // GET: /TempImage/
+        public ActionResult Index()
+        {
+            return View(db.TempImages.ToList());
+        }
+
+        // GET: /TempImage/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TempImage tempimage = db.TempImages.Find(id);
+            if (tempimage == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tempimage);
+        }
+
+        // GET: /TempImage/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: /TempImage/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include="TempImageID,CreateDate,Filename,Extension,Data")] TempImage tempimage)
+        {
+            if (ModelState.IsValid)
+            {
+                db.TempImages.Add(tempimage);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(tempimage);
+        }
+
+        // GET: /TempImage/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TempImage tempimage = db.TempImages.Find(id);
+            if (tempimage == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tempimage);
+        }
+
+        // POST: /TempImage/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include="TempImageID,CreateDate,Filename,Extension,Data")] TempImage tempimage)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(tempimage).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(tempimage);
+        }
+
+        // GET: /TempImage/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TempImage tempimage = db.TempImages.Find(id);
+            if (tempimage == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tempimage);
+        }
+
+        // POST: /TempImage/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            TempImage tempimage = db.TempImages.Find(id);
+            db.TempImages.Remove(tempimage);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

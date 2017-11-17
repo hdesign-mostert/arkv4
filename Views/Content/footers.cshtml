@@ -1,0 +1,28 @@
+@{
+    ViewBag.Title = "Footers";
+    ViewBag.PageBack = "Features";
+}
+
+@Html.Partial("Navigation-default")
+@Html.Partial("promo-default")
+
+<div>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+        <li class="breadcrumb-item"><a href="/headers">@ViewBag.PageBack</a></li>
+        <li class="breadcrumb-item active">@ViewBag.Title</li>
+    </ol>
+</div>
+
+
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+               <h1 class="mt font-weight-normal">Footers</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+

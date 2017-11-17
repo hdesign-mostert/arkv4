@@ -1,0 +1,10 @@
+﻿@model List<Ark.Models.Tag>
+@{
+ Layout=null;
+}
+
+<p class="lead">Tags</p>
+@foreach (Ark.Models.Tag tag in Model)
+{
+    <a class="btn btn-xs btn-default" href="~/articles/tag/@tag.Name.ToLower()" rel="nofollow">@tag.Name</a>
+}
